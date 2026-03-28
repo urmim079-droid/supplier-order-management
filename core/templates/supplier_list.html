@@ -1,0 +1,13 @@
+<h2>Suppliers</h2>
+
+<ul>
+  {% for supplier in suppliers %}
+    <li>
+      Name: {{ supplier.name }} |
+      Phone: {{ supplier.phone }} |
+      Email: {{ supplier.email }}
+    </li>
+  {% endfor %}
+</ul>
+
+<a href="/">Back to Home</a>
