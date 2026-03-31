@@ -1,13 +1,107 @@
-<h2>Suppliers</h2>
+{% extends "base.html" %}
 
-<ul>
-  {% for supplier in suppliers %}
-    <li>
-      Name: {{ supplier.name }} |
-      Phone: {{ supplier.phone }} |
-      Email: {{ supplier.email }}
-    </li>
-  {% endfor %}
-</ul>
+{% block title %}Suppliers{% endblock %}
+{% block nav_suppliers %}class="active"{% endblock %}
 
-<a href="/">Back to Home</a>
+{% block extra_style %}
+/* ── Low Stock Alert ── */
+.alert-banner {
+    display: flex;
+    align-items: flex-start;
+    gap: 14px;
+    background: rgba(239,68,68,0.08);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-left: 4px solid #ef4444;
+    border-radius: 12px;
+    padding: 16px 20px;
+    margin-bottom: 24px;
+    animation: slideIn 0.35s ease;
+}
+@keyframes slideIn {
+    from { opacity:0; transform: translateY(-8px); }
+    to   { opacity:1; transform: translateY(0); }
+}
+.alert-icon {
+    flex-shrink:0; width:36px; height:36px;
+    background:rgba(239,68,68,0.15); border-radius:8px;
+    display:flex; align-items:center; justify-content:center; color:#ef4444;
+}
+.alert-icon svg { width:18px; height:18px; }
+.alert-body { flex:1; }
+.alert-title { font-size:14px; font-weight:700; color:#fca5a5; margin-bottom:8px; }
+.alert-items { display:flex; flex-wrap:wrap; gap:8px; }
+.stock-pill {
+    display:inline-flex; align-items:center; gap:6px;
+    padding:4px 10px; border-radius:20px;
+    font-size:12px; font-weight:600; border:1px solid;
+}
+.stock-pill.danger  { background:rgba(239,68,68,0.15);  color:#fca5a5; border-color:rgba(239,68,68,0.3); }
+.stock-pill.warning { background:rgba(245,158,11,0.12); color:#fcd34d; border-color:rgba(245,158,11,0.3); }
+.stock-pill .qty { font-size:11px; opacity:0.75; }
+.alert-dismiss {
+    background:none; border:none; color:#64748b; cursor:pointer;
+    padding:4px; border-radius:6px; transition:color 0.2s; flex-shrink:0;
+}
+.alert-dismiss:hover { color:#f1f5f9; }
+{% endblock %}
+
+{% block content %}
+<div class="page-header">
+    <h1>Suppliers</h1>
+    <p>All registered suppliers in the system.</p>
+</div>
+
+{% if low_stock_products %}
+<div class="alert-banner" id="lowStockAlert">
+    <div class="alert-icon">
+        <svg fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 9v2m0 4h.01M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/></svg>
+    </div>
+    <div class="alert-body">
+        <div class="alert-title">⚠ Low Stock Alert — {{ low_stock_products|length }} product{{ low_stock_products|length|pluralize }} need restocking (≤ {{ low_stock_threshold }} units)</div>
+        <div class="alert-items">
+            {% for product in low_stock_products %}
+            <span class="stock-pill danger">
+                {{ product.name }}
+                <span class="qty">{{ product.quantity }} left</span>
+            </span>
+            {% endfor %}
+        </div>
+    </div>
+    <button class="alert-dismiss" onclick="document.getElementById('lowStockAlert').style.display='none'" title="Dismiss">
+        <svg width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"/></svg>
+    </button>
+</div>
+{% endif %}
+
+<div class="card">
+    <div class="card-header">
+        <h3>Supplier List</h3>
+        <span class="badge badge-blue">{{ suppliers|length }} Total</span>
+    </div>
+    <table>
+        <thead>
+            <tr>
+                <th>Name</th>
+                <th>Email</th>
+                <th>Phone</th>
+                <th>Address</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for supplier in suppliers %}
+            <tr>
+                 <td style="color: #111; font-weight: 600;">
+    {{ supplier.name }}
+</td>
+                <td style="color:#64748b;">{{ supplier.email }}</td>
+                <td>{{ supplier.phone }}</td>
+                <td style="color:#64748b;">{{ supplier.address }}</td>
+            </tr>
+            {% empty %}
+            <tr><td colspan="4" class="empty-state">No suppliers registered yet.</td></tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</div>
+{% endblock %}
+

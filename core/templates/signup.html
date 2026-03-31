@@ -1,0 +1,245 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - Supplier Order Management</title>
+    <style>
+        :root {
+            --primary-warm: #8B3A3A;
+            --secondary-warm: #D05C35;
+            --bg-warm: #FDF9F6;
+            --text-dark: #33211D;
+            --card-bg: #FFFFFF;
+            --input-border: #E0D8D5;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-warm);
+            color: var(--text-dark);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            flex-direction: column;
+        }
+
+        .brand-header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+
+        .brand-header h1 {
+            color: var(--primary-warm);
+            font-size: 28px;
+            margin: 0 0 5px 0;
+        }
+
+        .brand-header p {
+            color: #66524D;
+            margin: 0;
+            font-size: 15px;
+        }
+
+        .auth-container {
+            background-color: var(--card-bg);
+            width: 100%;
+            max-width: 450px;
+            border-top: 5px solid var(--secondary-warm);
+            border-radius: 8px;
+            box-shadow: 0 8px 24px rgba(0,0,0,0.08);
+            overflow: hidden;
+        }
+
+        .auth-tabs {
+            display: flex;
+            border-bottom: 1px solid var(--input-border);
+        }
+
+        .auth-tab {
+            flex: 1;
+            text-align: center;
+            padding: 18px 0;
+            font-size: 16px;
+            font-weight: 600;
+            color: #887A77;
+            text-decoration: none;
+            background-color: #FAFAFA;
+            transition: all 0.3s ease;
+        }
+
+        .auth-tab.active {
+            color: var(--primary-warm);
+            background-color: var(--card-bg);
+            border-bottom: 3px solid var(--primary-warm);
+            cursor: default;
+        }
+
+        .auth-tab:not(.active):hover {
+            color: var(--text-dark);
+            background-color: #F0EBE9;
+        }
+
+        .auth-form-wrapper {
+            padding: 40px 30px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            font-size: 14px;
+            color: var(--text-dark);
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1px solid var(--input-border);
+            border-radius: 4px;
+            font-size: 14px;
+            box-sizing: border-box;
+            font-family: inherit;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--primary-warm);
+            box-shadow: 0 0 0 3px rgba(139, 58, 58, 0.1);
+        }
+
+        .btn-submit {
+            width: 100%;
+            background-color: var(--primary-warm);
+            color: white;
+            border: none;
+            padding: 14px;
+            font-size: 16px;
+            font-weight: 600;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            margin-top: 10px;
+        }
+
+        .btn-submit:hover {
+            background-color: #702e2e;
+        }
+
+        .floating-home-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-warm);
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000;
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .floating-home-btn:hover {
+            background-color: #702e2e;
+            transform: translateY(-2px);
+        }
+
+        .form-footer {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 13px;
+        }
+
+        .form-footer a {
+            color: var(--secondary-warm);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .form-footer a:hover {
+            text-decoration: underline;
+        }
+
+        .alert-msg {
+            color: #8B3A3A;
+            background-color: #F8D7DA;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+
+        .success-msg {
+            color: #1a5c34;
+            background-color: #d4edda;
+            padding: 10px;
+            border-radius: 4px;
+            margin-bottom: 15px;
+            font-size: 14px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <a href="{% url 'home' %}" class="floating-home-btn">🏠 Home</a>
+
+    <div class="brand-header">
+        <h1>Supplier Order Management</h1>
+        <p>Official Access Portal</p>
+    </div>
+
+    <div class="auth-container">
+        <div class="auth-tabs">
+            <a href="{% url 'signin' %}" class="auth-tab">Sign In</a>
+            <span class="auth-tab active">Sign Up</span>
+        </div>
+
+        <div class="auth-form-wrapper">
+            <form action="{% url 'signup' %}" method="POST">
+                {% csrf_token %}
+
+                {% if messages %}
+                    {% for message in messages %}
+                        <div class="{% if message.tags == 'success' %}success-msg{% else %}alert-msg{% endif %}">
+                            {{ message }}
+                        </div>
+                    {% endfor %}
+                {% endif %}
+
+                <div class="form-group">
+                    <label for="signup-name">Full Name</label>
+                    <input type="text" id="signup-name" name="name" placeholder="John Doe" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-company">Supplier / Company Name</label>
+                    <input type="text" id="signup-company" name="company" placeholder="Acme Corp" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-email">Official Email Address</label>
+                    <input type="email" id="signup-email" name="email" placeholder="name@company.com" required>
+                </div>
+                <div class="form-group">
+                    <label for="signup-password">Create Password</label>
+                    <input type="password" id="signup-password" name="password" placeholder="••••••••" required>
+                </div>
+                <button type="submit" class="btn-submit">Submit Registration Request</button>
+                <div class="form-footer">
+                    <span style="color: #66524D;">By registering, you agree to our </span><a href="#">Supplier Terms</a>
+                </div>
+            </form>
+        </div>
+    </div>
+
+</body>
+</html>
