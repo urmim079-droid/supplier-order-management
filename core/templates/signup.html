@@ -6,10 +6,17 @@
     <title>Sign Up - Supplier Order Management</title>
     <style>
         :root {
+<<<<<<< HEAD
             --primary-warm: #8B3A3A;
             --secondary-warm: #D05C35;
             --bg-warm: #FDF9F6;
             --text-dark: #33211D;
+=======
+            --primary-warm: #8B3A3A; 
+            --secondary-warm: #D05C35; 
+            --bg-warm: #FDF9F6; 
+            --text-dark: #33211D; 
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
             --card-bg: #FFFFFF;
             --input-border: #E0D8D5;
         }
@@ -128,6 +135,7 @@
             transition: background-color 0.3s ease;
             margin-top: 10px;
         }
+<<<<<<< HEAD
 
         .btn-submit:hover {
             background-color: #702e2e;
@@ -135,6 +143,11 @@
 
         .floating-home-btn {
             position: absolute;
+=======
+/* Standalone Floating Home Button */
+        .floating-home-btn {
+            position: absolute; /* Keeps it strictly in the top-left */
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
             top: 20px;
             left: 20px;
             background-color: var(--primary-warm);
@@ -145,13 +158,25 @@
             font-weight: 600;
             font-size: 14px;
             box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+<<<<<<< HEAD
             z-index: 1000;
+=======
+            z-index: 1000; /* Ensures it stays on top of other elements */
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
             transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
         .floating-home-btn:hover {
             background-color: #702e2e;
+<<<<<<< HEAD
             transform: translateY(-2px);
+=======
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        .btn-submit:hover {
+            background-color: #702e2e;
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
         }
 
         .form-footer {
@@ -169,6 +194,7 @@
         .form-footer a:hover {
             text-decoration: underline;
         }
+<<<<<<< HEAD
 
         .alert-msg {
             color: #8B3A3A;
@@ -189,6 +215,8 @@
             font-size: 14px;
             text-align: center;
         }
+=======
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
     </style>
 </head>
 <body>
@@ -206,12 +234,20 @@
         </div>
 
         <div class="auth-form-wrapper">
+<<<<<<< HEAD
             <form action="{% url 'signup' %}" method="POST">
+=======
+            <form action="{% url 'signin' %}" method="POST">
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
                 {% csrf_token %}
 
                 {% if messages %}
                     {% for message in messages %}
+<<<<<<< HEAD
                         <div class="{% if message.tags == 'success' %}success-msg{% else %}alert-msg{% endif %}">
+=======
+                        <div style="color: #8B3A3A; background-color: #F8D7DA; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 14px; text-align: center;">
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
                             {{ message }}
                         </div>
                     {% endfor %}
@@ -242,4 +278,8 @@
     </div>
 
 </body>
+<<<<<<< HEAD
 </html>
+=======
+</html>
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603

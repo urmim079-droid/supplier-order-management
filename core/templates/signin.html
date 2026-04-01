@@ -6,10 +6,17 @@
     <title>Sign In - Supplier Order Management</title>
     <style>
         :root {
+<<<<<<< HEAD
             --primary-warm: #8B3A3A;
             --secondary-warm: #D05C35;
             --bg-warm: #FDF9F6;
             --text-dark: #33211D;
+=======
+            --primary-warm: #8B3A3A; 
+            --secondary-warm: #D05C35; 
+            --bg-warm: #FDF9F6; 
+            --text-dark: #33211D; 
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
             --card-bg: #FFFFFF;
             --input-border: #E0D8D5;
         }
@@ -25,6 +32,30 @@
             min-height: 100vh;
             flex-direction: column;
         }
+<<<<<<< HEAD
+=======
+/* Standalone Floating Home Button */
+        .floating-home-btn {
+            position: absolute; /* Keeps it strictly in the top-left */
+            top: 20px;
+            left: 20px;
+            background-color: var(--primary-warm);
+            color: white;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000; /* Ensures it stays on top of other elements */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .floating-home-btn:hover {
+            background-color: #702e2e;
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
 
         .brand-header {
             text-align: center;
@@ -133,6 +164,7 @@
             background-color: #702e2e;
         }
 
+<<<<<<< HEAD
         .floating-home-btn {
             position: absolute;
             top: 20px;
@@ -154,11 +186,16 @@
             transform: translateY(-2px);
         }
 
+=======
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
         .form-footer {
             text-align: center;
             margin-top: 20px;
             font-size: 13px;
+<<<<<<< HEAD
             color: #66524D;
+=======
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
         }
 
         .form-footer a {
@@ -170,6 +207,7 @@
         .form-footer a:hover {
             text-decoration: underline;
         }
+<<<<<<< HEAD
 
         .alert-msg {
             color: #8B3A3A;
@@ -190,6 +228,8 @@
             font-size: 14px;
             text-align: center;
         }
+=======
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
     </style>
 </head>
 <body>
@@ -206,6 +246,7 @@
             <a href="{% url 'signup' %}" class="auth-tab">Sign Up</a>
         </div>
 
+<<<<<<< HEAD
         <div class="auth-form-wrapper">
             <form action="{% url 'signin' %}" method="POST">
                 {% csrf_token %}
@@ -236,3 +277,30 @@
 
 </body>
 </html>
+=======
+<div class="auth-form-wrapper">
+<form action="{% url 'signin' %}" method="POST">
+    {% csrf_token %}
+    
+    {% if messages %}
+        {% for message in messages %}
+            <div style="color: #8B3A3A; background-color: #F8D7DA; padding: 10px; border-radius: 4px; margin-bottom: 15px; font-size: 14px; text-align: center;">
+                {{ message }}
+            </div>
+        {% endfor %}
+    {% endif %}
+
+    <div class="form-group">
+        <label for="signup-email">Official Email Address</label>
+        <input type="email" id="signup-email" name="email" placeholder="name@company.com" required>
+    </div>
+    <div class="form-group">
+        <label for="signup-password">Create Password</label>
+        <input type="password" id="signup-password" name="password" placeholder="••••••••" required>
+    </div>
+    <button type="submit" class="btn-submit">Submit</button>
+
+</form>
+</body>
+</html>
+>>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
