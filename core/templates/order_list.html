@@ -1,13 +1,187 @@
-<h2>Orders</h2>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Orders - Supplier Management</title>
+    
+    <style>
+        /* ── Global Styles ── */
+        :root {
+            --primary-warm: #8B3A3A; 
+            --secondary-warm: #D05C35; 
+            --bg-warm: #FDF9F6; 
+            --text-dark: #33211D; 
+            --card-bg: #FFFFFF;
+        }
 
-<ul>
-  {% for order in orders %}
-    <li>
-      Product: {{ order.product }} |
-      Quantity: {{ order.quantity }} |
-      Status: {{ order.status }}
-    </li>
-  {% endfor %}
-</ul>
+        body {
+            margin: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-warm);
+            color: var(--text-dark);
+        }
+                /* Standalone Floating Home Button */
 
-<a href="/">Back to Home</a>
+        /* ── Header Navigation ── */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 40px;
+            background-color: var(--card-bg);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+                .floating-home-btn {
+
+            background-color: var(--primary-warm);
+            color: white !important;
+            padding: 10px 16px;
+            text-decoration: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 14px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            z-index: 1000; /* Ensures it stays on top of other elements */
+            transition: background-color 0.3s ease, transform 0.2s ease;
+        }
+
+        .floating-home-btn:hover {
+            background-color: #702e2e;
+            transform: translateY(-2px); /* Slight lift effect on hover */
+        }
+
+        .logo a {
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            color: var(--primary-warm);
+        }
+
+        .logo h1 { margin: 0; font-size: 24px; }
+
+        .nav-buttons a {
+            text-decoration: none;
+            margin-left: 20px;
+            font-weight: 600;
+            color: var(--text-dark);
+            transition: color 0.2s ease;
+        }
+
+        .nav-buttons a:hover { color: var(--primary-warm); }
+
+        .btn-logout {
+            padding: 8px 16px;
+            border: 1px solid var(--primary-warm);
+            color: var(--primary-warm) !important;
+            border-radius: 4px;
+            transition: 0.3s ease;
+        }
+
+        .btn-logout:hover {
+            background-color: var(--primary-warm);
+            color: white !important;
+        }
+
+        /* ── Main Layout & Cards ── */
+        main {
+            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .card {
+            background: var(--card-bg);
+            border: 1px solid #e0d5d0;
+            border-radius: 14px;
+            box-shadow: 0 2px 8px rgba(139,58,58,0.06);
+            margin-bottom: 24px;
+            overflow: hidden;
+        }
+
+        .card-header {
+            padding: 20px 24px;
+            border-bottom: 1px solid #e0d5d0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .card-header h3 { margin: 0; font-size: 18px; color: var(--primary-warm); }
+
+        /* ── Tables & Pills ── */
+        table { width: 100%; border-collapse: collapse; }
+        th, td { padding: 16px 24px; text-align: left; border-bottom: 1px solid #e0d5d0; }
+        th { background: #faf7f5; font-weight: 600; color: #7a5f5a; font-size: 13px; text-transform: uppercase; }
+        
+        .badge-blue { background: #fdf2f2; color: #8B3A3A; padding: 6px 12px; border-radius: 4px; font-size: 12px; font-weight: bold; border: 1px solid #e0d5d0;}
+        .empty-state { text-align: center; color: #94a3b8; font-style: italic; }
+
+        .status-pill { padding: 4px 10px; border-radius: 20px; font-size: 12px; font-weight: 600; }
+        .status-Pending { background: #fef3c7; color: #d97706; }
+        .status-Shipped { background: #fee2e2; color: #ef4444; }
+        .status-Delivered { background: #dcfce3; color: #16a34a; }
+    </style>
+</head>
+<body>
+
+    <header>
+        <div class="logo">
+            <a href="/">
+                <h1>Supplier Order Management</h1>
+            </a>
+        </div>
+        <div class="nav-buttons">
+            <a href="{% url 'home' %}" class="floating-home-btn">🏠 Home</a>
+            <a href="/dashboard/">Dashboard</a>
+            <a href="/suppliers/">Suppliers</a>
+            <a href="/orders/" class="active" style="color: var(--primary-warm);">Orders</a>
+            <a href="/logout/" class="btn-logout">Logout</a>
+        </div>
+    </header>
+
+    <main>
+        <div class="page-header" style="margin-bottom: 30px;">
+            <h1 style="font-size: 40px; margin-bottom: 10px; background: linear-gradient(to right, #8B3A3A, #D05C35); -webkit-background-clip: text; color: transparent;">
+                Orders
+            </h1>
+            <p style="color: #7a5f5a; font-size: 16px;">All orders across all suppliers.</p>
+        </div>
+
+        <div class="card">
+            <div class="card-header">
+                <h3>Order List</h3>
+                <span class="badge badge-blue">{{ orders|length }} Total</span>
+            </div>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Order ID</th>
+                        <th>Supplier</th>
+                        <th>Product</th>
+                        <th>Quantity</th>
+                        <th>Status</th>
+                        <th>Date</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td style="color:#D05C35; font-weight:600;">#{{ order.id }}</td>
+                        <td style="color: #33211D; font-weight: 500;">{{ order.supplier.name }}</td>
+                        <td>{{ order.product.name }}</td>
+                        <td>{{ order.quantity }}</td>
+                        <td><span class="status-pill status-{{ order.status }}">{{ order.status }}</span></td>
+                        <td style="color:#64748b;">{{ order.order_date|date:"M d, Y" }}</td>
+                    </tr>
+                    {% empty %}
+                    <tr><td colspan="6" class="empty-state">No orders yet.</td></tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </main>
+
+</body>
+</html>
