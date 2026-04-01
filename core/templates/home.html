@@ -1,142 +1,11 @@
-<<<<<<< HEAD
+
 {% extends "base.html" %}
 
 {% block title %}Home{% endblock %}
 {% block nav_home %}class="active"{% endblock %}
 
 {% block extra_style %}
-.home-hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    text-align: center;
-}
-
-.home-hero h1 {
-    font-size: 36px;
-    font-weight: 700;
-    color: #f1f5f9;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #818cf8, #34d399);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.home-hero p {
-    font-size: 16px;
-    color: #64748b;
-    margin-bottom: 40px;
-    max-width: 420px;
-}
-
-.home-links {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.home-card {
-    width: 180px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    border-radius: 15px;
-
-    background: linear-gradient(135deg, #7f1d1d, #dc2626);
-    color: white;
-
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    transition: 0.3s;
-}
-
-.home-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-}
-
-.home-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.home-btn.primary {
-    background: linear-gradient(135deg, #6366f1, #818cf8);
-    color: #fff;
-}
-
-.home-btn.primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(99,102,241,0.4);
-}
-
-.home-btn.secondary {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #94a3b8;
-}
-
-.home-btn.secondary:hover {
-    background: rgba(255,255,255,0.08);
-    color: #f1f5f9;
-    transform: translateY(-2px);
-}
-{% endblock %}
-
-{% block content %}
-<div class="home-hero">
-     <h1 style="
-    font-size: 42px;
-    font-weight: bold;
-    background: linear-gradient(to right, #7f1d1d, #dc2626);
-    -webkit-background-clip: text;
-    color: transparent;
-    text-align: center;
-">
-    Supplier Order Management
-</h1>
-    <p>Manage your suppliers, products, and orders from one streamlined dashboard.</p>
-   
-
-       <div class="home-links">
-
-    <a href="/dashboard/" class="home-card">Dashboard</a>
-
-    <a href="/suppliers/" class="home-card">Suppliers</a>
-
-    <a href="/orders/" class="home-card">Orders</a>
-
-    <a href="/admin/" class="home-card">Admin</a>
-
-</div>
-
- 
- 
-    </div>
-</div>
- 
-{% endblock %}
-=======
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Supplier Order Management System</title>
-    <style>
-        :root {
+:root {
             --primary-warm: #8B3A3A; /* Deep warm burgundy */
             --secondary-warm: #D05C35; /* Terracotta / Warm orange */
             --bg-warm: #FDF9F6; /* Warm off-white */
@@ -268,8 +137,131 @@
             color: #555;
             margin-bottom: 0;
         }
-    </style>
-</head>
+.home-hero {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 60vh;
+    text-align: center;
+}
+
+.home-hero h1 {
+    font-size: 36px;
+    font-weight: 700;
+    color: #f1f5f9;
+    margin-bottom: 12px;
+    background: linear-gradient(135deg, #818cf8, #34d399);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.home-hero p {
+    font-size: 16px;
+    color: #64748b;
+    margin-bottom: 40px;
+    max-width: 420px;
+}
+
+.home-links {
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.home-card {
+    width: 180px;
+    height: 100px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-decoration: none;
+    font-weight: bold;
+    font-size: 18px;
+    border-radius: 15px;
+
+    background: linear-gradient(135deg, #7f1d1d, #dc2626);
+    color: white;
+
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+    transition: 0.3s;
+}
+
+.home-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
+}
+
+.home-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 12px 24px;
+    border-radius: 10px;
+    font-size: 14px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.home-btn.primary {
+    background: linear-gradient(135deg, #6366f1, #818cf8);
+    color: #fff;
+}
+
+.home-btn.primary:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(99,102,241,0.4);
+}
+
+.home-btn.secondary {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    color: #94a3b8;
+}
+
+.home-btn.secondary:hover {
+    background: rgba(255,255,255,0.08);
+    color: #f1f5f9;
+    transform: translateY(-2px);
+}
+{% endblock %}
+
+{% block content %}
+<div class="home-hero">
+     <h1 style="
+    font-size: 42px;
+    font-weight: bold;
+    background: linear-gradient(to right, #7f1d1d, #dc2626);
+    -webkit-background-clip: text;
+    color: transparent;
+    text-align: center;
+">
+    Supplier Order Management
+</h1>
+    <p>Manage your suppliers, products, and orders from one streamlined dashboard.</p>
+   
+
+       <div class="home-links">
+
+    <a href="/dashboard/" class="home-card">Dashboard</a>
+
+    <a href="/suppliers/" class="home-card">Suppliers</a>
+
+    <a href="/orders/" class="home-card">Orders</a>
+
+    <a href="/admin/" class="home-card">Admin</a>
+
+</div>
+
+ 
+ 
+    </div>
+</div>
+ 
+{% endblock %}
+ 
+ 
 <body>
 
  <header>
@@ -309,4 +301,4 @@
 
 </body>
 </html>
->>>>>>> 393963ebe1db656f8156e04d1f1e9d96bea6f603
+ 
