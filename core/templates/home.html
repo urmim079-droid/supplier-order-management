@@ -1,11 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Supplier Order Management System</title>
+    <style>
+        /* ── Auth Modal Styles ── */
+.modal-overlay {
+    position: fixed;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(51, 33, 29, 0.6); /* Dark warm overlay */
+    backdrop-filter: blur(4px);
+    display: none; /* Hidden by default */
+    align-items: center;
+    justify-content: center;
+    z-index: 9999;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
 
-{% extends "base.html" %}
+.modal-overlay.active {
+    display: flex;
+    opacity: 1;
+}
 
-{% block title %}Home{% endblock %}
-{% block nav_home %}class="active"{% endblock %}
+.modal-content {
+    background: #ffffff;
+    padding: 32px;
+    border-radius: 16px;
+    width: 90%;
+    max-width: 400px;
+    text-align: center;
+    box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+    transform: translateY(20px);
+    transition: transform 0.3s ease;
+}
 
-{% block extra_style %}
-:root {
+.modal-overlay.active .modal-content {
+    transform: translateY(0);
+}
+
+.modal-icon {
+    font-size: 40px;
+    margin-bottom: 16px;
+}
+
+.modal-content h2 {
+    color: #8B3A3A;
+    margin: 0 0 12px 0;
+    font-size: 22px;
+}
+
+.modal-content p {
+    color: #7a5f5a;
+    font-size: 15px;
+    margin-bottom: 24px;
+    line-height: 1.5;
+}
+
+.modal-buttons {
+    display: flex;
+    gap: 12px;
+    justify-content: center;
+}
+
+.btn-cancel {
+    padding: 10px 20px;
+    border: 1px solid #e0d5d0;
+    background: white;
+    color: #7a5f5a;
+    border-radius: 8px;
+    font-weight: 600;
+    cursor: pointer;
+    transition: background 0.2s;
+}
+
+.btn-cancel:hover { background: #faf7f5; }
+
+.btn-login {
+    padding: 10px 20px;
+    background: ( #D05C35);
+    color: white;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    transition: opacity 0.2s;
+}
+
+.btn-login:hover { opacity: 0.9; }
+        :root {
             --primary-warm: #8B3A3A; /* Deep warm burgundy */
             --secondary-warm: #D05C35; /* Terracotta / Warm orange */
             --bg-warm: #FDF9F6; /* Warm off-white */
@@ -64,14 +147,6 @@
             background-color: #b84f2b; 
         }
 
-        .btn-dashboard { 
-            background-color: var(--secondary-warm); 
-            color: white; 
-            border: 1px solid var(--secondary-warm);
-        }
-        .btn-dashboard:hover { 
-             background-color: #b84f2b; 
-        }
 
         /* 1/3 Solid Body Block */
         .hero-block {
@@ -137,128 +212,21 @@
             color: #555;
             margin-bottom: 0;
         }
-.home-hero {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    min-height: 60vh;
-    text-align: center;
-}
+    </style>
+</head>
+<script>
+    function showAuthModal(event) {
+        // Prevent the link from actually changing the page
+        event.preventDefault(); 
+        // Show the modal
+        document.getElementById('authModal').classList.add('active');
+    }
 
-.home-hero h1 {
-    font-size: 36px;
-    font-weight: 700;
-    color: #f1f5f9;
-    margin-bottom: 12px;
-    background: linear-gradient(135deg, #818cf8, #34d399);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-}
-
-.home-hero p {
-    font-size: 16px;
-    color: #64748b;
-    margin-bottom: 40px;
-    max-width: 420px;
-}
-
-.home-links {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-    justify-content: center;
-}
-.home-card {
-    width: 180px;
-    height: 100px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-decoration: none;
-    font-weight: bold;
-    font-size: 18px;
-    border-radius: 15px;
-
-    background: linear-gradient(135deg, #7f1d1d, #dc2626);
-    color: white;
-
-    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-    transition: 0.3s;
-}
-
-.home-card:hover {
-    transform: translateY(-5px);
-    box-shadow: 0 15px 30px rgba(0,0,0,0.3);
-}
-
-.home-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 12px 24px;
-    border-radius: 10px;
-    font-size: 14px;
-    font-weight: 600;
-    text-decoration: none;
-    transition: all 0.2s ease;
-}
-
-.home-btn.primary {
-    background: linear-gradient(135deg, #6366f1, #818cf8);
-    color: #fff;
-}
-
-.home-btn.primary:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(99,102,241,0.4);
-}
-
-.home-btn.secondary {
-    background: rgba(255,255,255,0.05);
-    border: 1px solid rgba(255,255,255,0.1);
-    color: #94a3b8;
-}
-
-.home-btn.secondary:hover {
-    background: rgba(255,255,255,0.08);
-    color: #f1f5f9;
-    transform: translateY(-2px);
-}
-{% endblock %}
-
-{% block content %}
-<div class="home-hero">
-    <h1 style="
-    font-size: 42px;
-    font-weight: bold;
-    background: linear-gradient(to right, #7f1d1d, #dc2626);
-    -webkit-background-clip: text;
-    color: transparent;
-    text-align: center;
-">
-    Supplier Order Management
-</h1>
-    <p>Manage your suppliers, products, and orders from one streamlined dashboard.</p>
-   
-<div class="home-links">
-
-    <a href="/dashboard/" class="home-card">Dashboard</a>
-
-    <a href="/suppliers/" class="home-card">Suppliers</a>
-
-    <a href="/orders/" class="home-card">Orders</a>
-
-    <a href="/admin/" class="home-card">Admin</a>
-
-</div>
-
-
- 
- 
-{% endblock %}
- 
- 
+    function closeAuthModal() {
+        // Hide the modal
+        document.getElementById('authModal').classList.remove('active');
+    }
+</script>
 <body>
 
  <header>
@@ -268,34 +236,48 @@
         <div class="nav-buttons">
             <a href="{% url  'signin' %}" class="btn-login">Login</a>
             <a href="{% url  'signup' %}" class="btn-signup">Sign Up</a>
-            <a href="/admin/" class="btn-dashboard">Dashboard</a>
         </div>
     </header>
 
     <div class="hero-block">
         <div>
-            <h2>Supply Chain Operations</h2>
+            <h2>FastTrack</h2>
             <p>Official portal for procurement, logistics, and partner management.</p>
         </div>
     </div>
 
     <div class="features-section">
-        <a href="/suppliers/" class="feature-card">
-            <h3>Supplier Management</h3>
-            <p>Access the directory, onboard new partners, and review official supplier compliance metrics.</p>
-        </a>
+<a class="feature-card"
+       href="{% if request.user.is_authenticated %}/suppliers/{% else %}#{% endif %}" 
+       {% if not request.user.is_authenticated %}onclick="showAuthModal(event)"{% endif %}>
+        
+        <h3>Supplier Management</h3>
+        <p>Access the directory, onboard new partners, and review official supplier compliance metrics.</p>
+    </a>
 
-        <a href="/orders/" class="feature-card">
-            <h3>Order Management</h3>
-            <p>Draft, authorize, and archive purchase orders through our secure procurement system.</p>
-        </a>
-
-        <a href="/status/" class="feature-card">
-            <h3>Order Status Tracking</h3>
-            <p>Monitor real-time fulfillment timelines and logistics data for all active shipments.</p>
-        </a>
+    <a class="feature-card"
+       href="{% if request.user.is_authenticated %}/orders/{% else %}#{% endif %}" 
+       {% if not request.user.is_authenticated %}onclick="showAuthModal(event)"{% endif %}>
+        
+        <h3>Order Management</h3>
+        <p>Draft, authorize, and archive purchase orders through our secure procurement system.</p>
+    </a>
+<a class="feature-card" href="/admin/">
+    <h3>Admin</h3>
+    <p>Draft, authorize, and archive purchase orders</p>
+</a>
     </div>
-
+<div id="authModal" class="modal-overlay">
+    <div class="modal-content">
+        <div class="modal-icon">🔒</div>
+        <h2>Authentication Required</h2>
+        <p>You need to be logged in to access the Supplier and Order Management dashboards.</p>
+        <div class="modal-buttons">
+            <button class="btn-cancel" onclick="closeAuthModal()">Cancel</button>
+            <a href="/signin/" class="btn-login">Sign In Now</a>
+        </div>
+    </div>
+</div>
 </body>
 </html>
  
